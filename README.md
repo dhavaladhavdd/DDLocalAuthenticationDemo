@@ -35,7 +35,7 @@ var error: NSError?
 if context.canEvaluatePolicy(.deviceOwnerAuthentication, error: &error) {
 ```
 
-Choose a value from the [LAPolicy](https://developer.apple.com/documentation/localauthentication/lapolicy) enumeration for which to test. The policy controls how the authentication behaves. For example, the [deviceOwnerAuthentication](https://developer.apple.com/documentation/localauthentication/lapolicy/1514164-deviceownerauthentication) policy used in this sample indicates that reverting to a passcode is allowed when biometrics fails or is unavailable. Alternatively, you can indicate the [deviceOwnerAuthenticationWithBiometrics](https://developer.apple.com/documentation/localauthentication/lapolicy/1622327-deviceownerauthenticationwithbio) policy, which doesn’t allow reverting to the device passcode.
+Choose a value from the [LAPolicy](https://developer.apple.com/documentation/localauthentication/lapolicy) enumeration for which to test. The policy controls how the authentication behaves. For example, the [deviceOwnerAuthentication](https://developer.apple.com/documentation/localauthentication/lapolicy/deviceownerauthentication) policy used in this sample indicates that reverting to a passcode is allowed when biometrics fails or is unavailable. Alternatively, you can indicate the [deviceOwnerAuthenticationWithBiometrics](https://developer.apple.com/documentation/localauthentication/lapolicy/deviceownerauthenticationwithbiometrics) policy, which doesn’t allow reverting to the device passcode.
 
 ## Evaluate a Policy
 
@@ -86,6 +86,6 @@ For various reasons, authentication sometimes fails or is unavailable:
 - Touch ID or Face ID fails to recognize the user.
 - You’ve previously invalidated the context with a call to the [invalidate()](https://developer.apple.com/documentation/localauthentication/lacontext/1514192-invalidate) method.
 
-For a complete list of possible error conditions, see [LAError.Code](https://developer.apple.com/documentation/localauthentication/laerror.code).
+For a complete list of possible error conditions, see [LAError.Code](https://developer.apple.com/documentation/localauthentication/laerror/code).
 
 This sample app doesn’t implement alternative authentication. In a real app, if you encounter a local authentication error, fall back to your own authentication scheme, like asking for a username and password. Use biometrics as a supplement to something you’re already doing. Don’t depend on biometrics as your only authentication option.

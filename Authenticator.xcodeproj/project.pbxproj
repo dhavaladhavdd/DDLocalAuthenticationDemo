@@ -15,6 +15,8 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		7877DB407877DBC000000001 /* SampleCode.xcconfig */ = {isa = PBXFileReference; name = SampleCode.xcconfig; path = Configuration/SampleCode.xcconfig; sourceTree = "<group>"; };
+		7A058F807A047BE000000001 /* LICENSE.txt */ = {isa = PBXFileReference; includeInIndex = 1; path = LICENSE.txt; sourceTree = "<group>"; };
 		C2046F8E20952DB900CA4798 /* README.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
 		C2264F28207EBC7B007176C9 /* Authenticator.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Authenticator.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		C2264F2B207EBC7B007176C9 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -23,8 +25,6 @@
 		C2264F32207EBC7D007176C9 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		C2264F35207EBC7D007176C9 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		C2264F37207EBC7D007176C9 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		EC4A1F40EC4A256000000001 /* SampleCode.xcconfig */ = {isa = PBXFileReference; name = SampleCode.xcconfig; path = Configuration/SampleCode.xcconfig; sourceTree = "<group>"; };
-		ED2503B0ED25023000000001 /* LICENSE.txt */ = {isa = PBXFileReference; includeInIndex = 1; path = LICENSE.txt; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -38,14 +38,31 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		7877E3007877F14000000001 /* Configuration */ = {
+			isa = PBXGroup;
+			children = (
+				7877DB407877DBC000000001 /* SampleCode.xcconfig */,
+			);
+			name = Configuration;
+			sourceTree = "<group>";
+		};
+		7A0538807A05EB0000000001 /* LICENSE */ = {
+			isa = PBXGroup;
+			children = (
+				7A058F807A047BE000000001 /* LICENSE.txt */,
+			);
+			name = LICENSE;
+			path = LICENSE;
+			sourceTree = "<group>";
+		};
 		C2264F1F207EBC7B007176C9 = {
 			isa = PBXGroup;
 			children = (
 				C2046F8E20952DB900CA4798 /* README.md */,
 				C2264F2A207EBC7B007176C9 /* Authenticator */,
 				C2264F29207EBC7B007176C9 /* Products */,
-				EC4A24D0EC4A298000000001 /* Configuration */,
-				ED24F590ED24F43000000001 /* LICENSE */,
+				7877E3007877F14000000001 /* Configuration */,
+				7A0538807A05EB0000000001 /* LICENSE */,
 			);
 			sourceTree = "<group>";
 		};
@@ -70,23 +87,6 @@
 			path = Authenticator;
 			sourceTree = "<group>";
 		};
-		EC4A24D0EC4A298000000001 /* Configuration */ = {
-			isa = PBXGroup;
-			children = (
-				EC4A1F40EC4A256000000001 /* SampleCode.xcconfig */,
-			);
-			name = Configuration;
-			sourceTree = "<group>";
-		};
-		ED24F590ED24F43000000001 /* LICENSE */ = {
-			isa = PBXGroup;
-			children = (
-				ED2503B0ED25023000000001 /* LICENSE.txt */,
-			);
-			name = LICENSE;
-			path = LICENSE;
-			sourceTree = "<group>";
-		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -97,7 +97,7 @@
 				C2264F24207EBC7B007176C9 /* Sources */,
 				C2264F25207EBC7B007176C9 /* Frameworks */,
 				C2264F26207EBC7B007176C9 /* Resources */,
-				C2046FAD2097813100CA4798,
+				09100EC009100F7000000001,
 			);
 			buildRules = (
 			);
@@ -120,7 +120,7 @@
 				TargetAttributes = {
 					C2264F27207EBC7B007176C9 = {
 						CreatedOnToolsVersion = 9.4;
-						LastSwiftMigration = 1000;
+						LastSwiftMigration = 1020;
 					};
 				};
 			};
@@ -189,7 +189,7 @@
 /* Begin XCBuildConfiguration section */
 		C2264F38207EBC7D007176C9 /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = EC4A1F40EC4A256000000001 /* SampleCode.xcconfig */;
+			baseConfigurationReference = 7877DB407877DBC000000001 /* SampleCode.xcconfig */;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				CLANG_ANALYZER_NONNULL = YES;
@@ -250,7 +250,7 @@
 		};
 		C2264F39207EBC7D007176C9 /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = EC4A1F40EC4A256000000001 /* SampleCode.xcconfig */;
+			baseConfigurationReference = 7877DB407877DBC000000001 /* SampleCode.xcconfig */;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				CLANG_ANALYZER_NONNULL = YES;
@@ -305,7 +305,7 @@
 		};
 		C2264F3B207EBC7D007176C9 /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = EC4A1F40EC4A256000000001 /* SampleCode.xcconfig */;
+			baseConfigurationReference = 7877DB407877DBC000000001 /* SampleCode.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
@@ -319,14 +319,14 @@
 				PRODUCT_BUNDLE_IDENTIFIER = "com.example.apple-samplecode.Authenticator${SAMPLE_CODE_DISAMBIGUATOR}";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
-				SWIFT_VERSION = 4.2;
+				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Debug;
 		};
 		C2264F3C207EBC7D007176C9 /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = EC4A1F40EC4A256000000001 /* SampleCode.xcconfig */;
+			baseConfigurationReference = 7877DB407877DBC000000001 /* SampleCode.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
@@ -340,7 +340,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = "com.example.apple-samplecode.Authenticator${SAMPLE_CODE_DISAMBIGUATOR}";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
-				SWIFT_VERSION = 4.2;
+				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Release;
