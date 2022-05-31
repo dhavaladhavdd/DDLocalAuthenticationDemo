@@ -23,6 +23,7 @@ class ViewController: UIViewController {
     }
 
     /// The current authentication state.
+    @MainActor
     var state = AuthenticationState.loggedout {
 
         // Update the UI on a change.
@@ -71,30 +72,23 @@ class ViewController: UIViewController {
 
             // First check if we have the needed hardware support.
             var error: NSError?
-            if context.canEvaluatePolicy(.deviceOwnerAuthentication, error: &error) {
-
-                let reason = "Log in to your account"
-                context.evaluatePolicy(.deviceOwnerAuthentication, localizedReason: reason ) { success, error in
-
-                    if success {
-
-                        // Move to the main thread because a state update triggers UI changes.
-                        DispatchQueue.main.async { [unowned self] in
-                            self.state = .loggedin
-                        }
-
-                    } else {
-                        print(error?.localizedDescription ?? "Failed to authenticate")
-
-                        // Fall back to a asking for username and password.
-                        // ...
-                    }
-                }
-            } else {
+            guard context.canEvaluatePolicy(.deviceOwnerAuthentication, error: &error) else {
                 print(error?.localizedDescription ?? "Can't evaluate policy")
 
                 // Fall back to a asking for username and password.
                 // ...
+                return
+            }
+            Task {
+                do {
+                    try await context.evaluatePolicy(.deviceOwnerAuthentication, localizedReason: "Log in to your account")
+                    state = .loggedin
+                } catch let error {
+                    print(error.localizedDescription)
+
+                    // Fall back to a asking for username and password.
+                    // ...
+                }
             }
         }
     }

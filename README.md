@@ -32,7 +32,13 @@ Before attempting to authenticate, test to make sure that you actually have the 
 
 ``` swift
 var error: NSError?
-if context.canEvaluatePolicy(.deviceOwnerAuthentication, error: &error) {
+guard context.canEvaluatePolicy(.deviceOwnerAuthentication, error: &error) else {
+    print(error?.localizedDescription ?? "Can't evaluate policy")
+
+    // Fall back to a asking for username and password.
+    // ...
+    return
+}
 ```
 
 Choose a value from the [LAPolicy](https://developer.apple.com/documentation/localauthentication/lapolicy) enumeration for which to test. The policy controls how the authentication behaves. For example, the [deviceOwnerAuthentication](https://developer.apple.com/documentation/localauthentication/lapolicy/deviceownerauthentication) policy used in this sample indicates that reverting to a passcode is allowed when biometrics fails or is unavailable. Alternatively, you can indicate the [deviceOwnerAuthenticationWithBiometrics](https://developer.apple.com/documentation/localauthentication/lapolicy/deviceownerauthenticationwithbiometrics) policy, which doesn’t allow reverting to the device passcode.
@@ -42,18 +48,12 @@ Choose a value from the [LAPolicy](https://developer.apple.com/documentation/loc
 When you’re ready to authenticate, call the [evaluatePolicy(_:localizedReason:reply:)](https://developer.apple.com/documentation/localauthentication/lacontext/1514176-evaluatepolicy) method, using the same policy you already tested:
 
 ``` swift
-let reason = "Log in to your account"
-context.evaluatePolicy(.deviceOwnerAuthentication, localizedReason: reason ) { success, error in
-
-    if success {
-
-        // Move to the main thread because a state update triggers UI changes.
-        DispatchQueue.main.async { [unowned self] in
-            self.state = .loggedin
-        }
-
-    } else {
-        print(error?.localizedDescription ?? "Failed to authenticate")
+Task {
+    do {
+        try await context.evaluatePolicy(.deviceOwnerAuthentication, localizedReason: "Log in to your account")
+        state = .loggedin
+    } catch let error {
+        print(error.localizedDescription)
 
         // Fall back to a asking for username and password.
         // ...
