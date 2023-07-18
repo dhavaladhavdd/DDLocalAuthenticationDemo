@@ -7,6 +7,7 @@ Login view controller.
 
 import UIKit
 import LocalAuthentication
+import DDLocalAuthentication
 
 class ViewController: UIViewController {
 
@@ -16,6 +17,8 @@ class ViewController: UIViewController {
 
     /// An authentication context stored at class scope so it's available for use during UI updates.
     var context = LAContext()
+    
+    private let auth: DDLocalAuthenticationProtocol = DDLocalAuthentication()
 
     /// The available states of being logged in or not.
     enum AuthenticationState {
@@ -34,7 +37,7 @@ class ViewController: UIViewController {
             // FaceID runs right away on evaluation, so you might want to warn the user.
             //  In this app, show a special Face ID prompt if the user is logged out, but
             //  only if the device supports that kind of authentication.
-            faceIDLabel.isHidden = (state == .loggedin) || (context.biometryType != .faceID)
+            faceIDLabel.isHidden = (state == .loggedin) || (auth.biometryType != .faceID)
         }
     }
 
@@ -46,7 +49,7 @@ class ViewController: UIViewController {
         //  policy evaluation callback (for example, don't put next line in the state's didSet
         //  method, which is triggered as a result of the state change made in the callback),
         //  because that might result in deadlock.
-        context.canEvaluatePolicy(.deviceOwnerAuthentication, error: nil)
+        auth.canEvaluatePolicy(.deviceOwnerAuthentication, error: nil)
 
         // Set the initial app state. This impacts the initial state of the UI as well.
         state = .loggedout
@@ -68,11 +71,13 @@ class ViewController: UIViewController {
             //  That's usually not what you want.
             context = LAContext()
 
-            context.localizedCancelTitle = "Enter Username/Password"
+//            auth.context.localizedCancelTitle = "*** Enter Password"
+//            auth.context.localizedFallbackTitle = "*** Fall back option"
+            auth.setLocalizedReason(to: "*** localized reson title")
 
             // First check if we have the needed hardware support.
             var error: NSError?
-            guard context.canEvaluatePolicy(.deviceOwnerAuthentication, error: &error) else {
+            guard auth.canEvaluatePolicy(.deviceOwnerAuthentication, error: &error) else {
                 print(error?.localizedDescription ?? "Can't evaluate policy")
 
                 // Fall back to a asking for username and password.
@@ -81,11 +86,24 @@ class ViewController: UIViewController {
             }
             Task {
                 do {
-                    try await context.evaluatePolicy(.deviceOwnerAuthentication, localizedReason: "Log in to your account")
+                    let isSuccess = try await auth.evaluatePolicy(.deviceOwnerAuthentication, localizedReason: "*** Log in to your account")
                     state = .loggedin
                 } catch let error {
                     print(error.localizedDescription)
 
+//                    do {
+//                        try context.evaluatePolicy(.deviceOwnerAuthentication, localizedReason: "auth please", reply: { [weak self] result ,error in
+//                            if result, error == nil {
+//
+//                                self?.state = .loggedin
+//                            } else {
+//                                print("some error: \(error)")
+//                            }
+//                        })
+//                    }
+//                    catch {
+//                        print(error.localizedDescription)
+//                    }
                     // Fall back to a asking for username and password.
                     // ...
                 }
@@ -93,4 +111,3 @@ class ViewController: UIViewController {
         }
     }
 }
-
